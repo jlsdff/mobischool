@@ -39,9 +39,12 @@ export default function Index() {
                         />
                         <Link href="forgot"  >Forgot Password?</Link>
                     </View>
-                    <TouchableOpacity className="border border-1 border-slate-900 rounded-xl h-13 py-3 px-5 bg-primary-dark" >
-                        <Text className="text-center text-xl text-txt-light2">Sign in</Text>
-                    </TouchableOpacity>
+                    <View >
+                        <TouchableOpacity className="border border-1 border-slate-900 rounded-xl h-13 py-3 px-5 bg-primary-dark mt-2" activeOpacity={0.8} >
+                            <Text className="text-center text-xl text-txt-light2">Sign in</Text>
+                        </TouchableOpacity>
+                    </View>
+
 
                     {/* Seperator */}
                     <View>
