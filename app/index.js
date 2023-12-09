@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, ImageBackground, Image } from "react-native"
 import { Stack, Link } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
@@ -12,11 +12,25 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function Index() {
 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     const router = useRouter();
 
-    // 
+    function changeInfo(type, value) {
+        if (type === "email") {
+            setEmail(value)
+        } else if (type === "password") {
+            setPassword(value)
+        }
+    }
+
     function login() {
-        router.push("/dashboard/")
+        console.log(`
+        Email: ${email} \n
+        Password: ${password}
+        `)
+        // router.push("/dashboard/")
     }
 
     return (
@@ -32,11 +46,13 @@ export default function Index() {
                     <TextInput
                         className="h-13 py-2 px-4 border-2 rounded-xl border-neutral7 "
                         placeholder="Email"
+                        onChangeText={text => changeInfo("email", text)}
                     />
                     <TextInput
                         className="h-13 py-2 px-4 border-2 rounded-xl border-neutral7 "
                         placeholder="Password"
                         secureTextEntry={true}
+                        onChangeText={text => changeInfo("password", text)}
                     />
                     <View className="flex-row justify-between items-center">
                         <BouncyCheckbox

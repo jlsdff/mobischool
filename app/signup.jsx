@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ImageBackground, TextInput, Image, TouchableOpacity } from "react-native";
+import { View, Text, ImageBackground, TextInput, Image, TouchableOpacity, Button } from "react-native";
 import { Stack } from "expo-router";
 import Seperator from "../components/seperator";
 import { AntDesign } from '@expo/vector-icons';
@@ -11,7 +11,21 @@ import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 export default function SignUpScreen() {
 
     const [date, setDate] = useState(new Date())
-    const [open, setOpen] = useState(false)
+
+    function onChange(event, selectedDate) {
+        const currentDate = selectedDate;
+        setDate(currentDate);
+    }
+
+    function setBirthdate() {
+        DateTimePickerAndroid.open({
+            value: date,
+            onChange,
+            mode: 'date',
+            is24Hour: true,
+        })
+    }
+
 
 
     return (
@@ -29,32 +43,39 @@ export default function SignUpScreen() {
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="First Name"
                             inputMode="text"
+                            placeholderTextColor={"##6C757D"}
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Last Name"
                             inputMode="text"
+                            placeholderTextColor={"##6C757D"}
                         />
-                        <TextInput
-                            className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
-                            placeholder="Birthdate"
-                            inputMode="text"
-                        />
-                        <DateTimePickerAndroid
-                            value={new Date()}
-                            display="calendar"
-                        />
+                        <TouchableOpacity onPress={setBirthdate} >
+                            <View className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl justify-center items-start">
+                                <Text className="text-neutral6" >
+                                    {
+                                        new Date().toLocaleDateString() === date.toLocaleDateString() ?
+                                            "Birthdate" :
+                                            date.toLocaleDateString()
+                                    }
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Email"
+                            placeholderTextColor={"##6C757D"}
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Password"
+                            placeholderTextColor={"##6C757D"}
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Cofirm Password"
+                            placeholderTextColor={"##6C757D"}
                         />
                         <View>
                             <Seperator text="OR" />
