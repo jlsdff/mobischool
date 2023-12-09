@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, ImageBackground, TextInput, Image, TouchableOpacity } from "react-native";
 import { Stack } from "expo-router";
 import Seperator from "../components/seperator";
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { SignUp } from "../utils/firebase/signup";
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
-export default function SignUp() {
+
+export default function SignUpScreen() {
+
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
+
+
     return (
         <View className="flex-1">
             <ImageBackground className="flex-1" source={require("../assets/background.png")} resizeMode="cover" >
@@ -20,15 +28,21 @@ export default function SignUp() {
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="First Name"
+                            inputMode="text"
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Last Name"
+                            inputMode="text"
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Birthdate"
-
+                            inputMode="text"
+                        />
+                        <DateTimePickerAndroid
+                            value={new Date()}
+                            display="calendar"
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
