@@ -9,7 +9,6 @@ import { useRouter } from "expo-router";
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const background = { uri: "../assets/background.png" }
 
 export default function Index() {
 
@@ -29,7 +28,7 @@ export default function Index() {
             <ImageBackground className="flex-1" source={require("../assets/background.png")} resizeMode="cover" >
                 < Image className="h-[200px] w-[200px] mx-auto mt-14" source={require("../assets/icon.png")} />
                 <View className="gap-4 px-4">
-                    <Text className="text-slate-950 text-3xl text-center text-black font-sans" >Sign in</Text>
+                    <Text className="text-3xl font-bold text-center text-neutral9" >Sign in</Text>
                     <TextInput
                         className="h-13 py-2 px-4 border-2 rounded-xl border-neutral7 "
                         placeholder="Email"
