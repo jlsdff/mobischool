@@ -5,10 +5,19 @@ import { StatusBar } from 'expo-status-bar';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Seperator from "../components/seperator";
+import { useRouter } from "expo-router";
 
 const background = { uri: "../assets/background.png" }
 
 export default function Index() {
+
+    const router = useRouter();
+
+    // 
+    function login(){
+        router.push("/dashboard/")
+    }
+    
     return (
         <View className="flex-1 bg-slate-900 ">
             <StatusBar style="dark" />
@@ -40,7 +49,11 @@ export default function Index() {
                         <Link href="forgot"  >Forgot Password?</Link>
                     </View>
                     <View >
-                        <TouchableOpacity className="border border-1 border-slate-900 rounded-xl h-13 py-3 px-5 bg-primary-dark mt-2" activeOpacity={0.8} >
+                        <TouchableOpacity 
+                            className="border border-1 border-slate-900 rounded-xl h-13 py-3 px-5 bg-primary-dark mt-2" 
+                            activeOpacity={0.8}
+                            onPress={login}
+                             >
                             <Text className="text-center text-xl text-txt-light2">Sign in</Text>
                         </TouchableOpacity>
                     </View>
