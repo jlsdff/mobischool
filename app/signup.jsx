@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, ImageBackground, TextInput, Image, TouchableOpacity, Button } from "react-native";
+import React, { useReducer } from "react";
+import { View, Text, ImageBackground, TextInput, Image, TouchableOpacity, Button, ScrollView } from "react-native";
 import { Stack } from "expo-router";
 import Seperator from "../components/seperator";
 import { AntDesign } from '@expo/vector-icons';
@@ -8,18 +8,53 @@ import { SignUp } from "../utils/firebase/signup";
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 
+function reducer(state, action) {
+
+    const { type, value } = action
+
+    switch (type) {
+        case "firstname":
+            return { ...state, firstname: value }
+        case "lastname":
+            return { ...state, lastname: value }
+        case "birthdate":
+            return { ...state, birthdate: value }
+        case "email":
+            return { ...state, email: value }
+        case "password":
+            return { ...state, password: value }
+        case "confirmPassword":
+            return { ...state, confirmPassword: value }
+        default:
+            return state;
+    }
+
+
+}
+
 export default function SignUpScreen() {
 
-    const [date, setDate] = useState(new Date())
+    const [credentials, credentialsDispatch] = useReducer(reducer, {
+        firstname: "",
+        lastname: "",
+        birthdate: new Date(),
+        email: "",
+        password: "",
+        confirmPassword: ""
+    })
+
+    function onSignUp() {
+        console.log(credentials)
+    }
 
     function onChange(event, selectedDate) {
-        const currentDate = selectedDate;
-        setDate(currentDate);
+        const birthdate = selectedDate;
+        credentialsDispatch({ type: "birthdate", value: birthdate })
     }
 
     function setBirthdate() {
         DateTimePickerAndroid.open({
-            value: date,
+            value: credentials.birthdate,
             onChange,
             mode: 'date',
             is24Hour: true,
@@ -29,8 +64,8 @@ export default function SignUpScreen() {
 
 
     return (
-        <View className="flex-1">
-            <ImageBackground className="flex-1" source={require("../assets/background.png")} resizeMode="cover" >
+        <ScrollView className="flex-1 ">
+            <ImageBackground className="flex-1 pb-4" source={require("../assets/background.png")} resizeMode="cover" >
                 <Stack.Screen options={{ headerShown: false }} />
                 <View className="pt-[50px] mx-4">
                     <View className="items-center">
@@ -38,26 +73,29 @@ export default function SignUpScreen() {
                     </View>
                     <Text className="text-3xl font-bold text-center text-neutral9">Sign up</Text>
                     {/* TODO: Add excerpt here */}
+                    <Text className="text-center text-lg text-neutral8">Create a new account</Text>
                     <View className="gap-3 mt-3">
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="First Name"
                             inputMode="text"
-                            placeholderTextColor={"##6C757D"}
+                            placeholderTextColor={"#6C757D"}
+                            onChangeText={text => credentialsDispatch({ type: "firstname", value: text })}
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Last Name"
                             inputMode="text"
-                            placeholderTextColor={"##6C757D"}
+                            placeholderTextColor={"#6C757D"}
+                            onChangeText={text => credentialsDispatch({ type: "lastname", value: text })}
                         />
                         <TouchableOpacity onPress={setBirthdate} >
                             <View className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl justify-center items-start">
                                 <Text className="text-neutral6" >
                                     {
-                                        new Date().toLocaleDateString() === date.toLocaleDateString() ?
+                                        new Date().toLocaleDateString() === credentials.birthdate.toLocaleDateString() ?
                                             "Birthdate" :
-                                            date.toLocaleDateString()
+                                            credentials.birthdate.toLocaleDateString()
                                     }
                                 </Text>
                             </View>
@@ -65,18 +103,32 @@ export default function SignUpScreen() {
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Email"
-                            placeholderTextColor={"##6C757D"}
+                            placeholderTextColor={"#6C757D"}
+                            onChangeText={text => credentialsDispatch({ type: "email", value: text })}
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Password"
-                            placeholderTextColor={"##6C757D"}
+                            placeholderTextColor={"#6C757D"}
+                            onChangeText={text => credentialsDispatch({ type: "password", value: text })}
+                            secureTextEntry={true}
                         />
                         <TextInput
                             className="px-4 px-2 h-[48px] border border-2 border-neutral7 rounded-xl"
                             placeholder="Cofirm Password"
-                            placeholderTextColor={"##6C757D"}
+                            placeholderTextColor={"#6C757D"}
+                            onChangeText={text => credentialsDispatch({ type: "confirmPassword", value: text })}
+                            secureTextEntry={true}
                         />
+                        <View >
+                            <TouchableOpacity
+                                className="border border-1 border-slate-900 rounded-xl h-13 py-3 px-5 bg-primary-dark mt-2"
+                                activeOpacity={0.8}
+                                onPress={onSignUp}
+                            >
+                                <Text className="text-center text-xl text-txt-light2">Sign in</Text>
+                            </TouchableOpacity>
+                        </View>
                         <View>
                             <Seperator text="OR" />
                         </View>
@@ -99,6 +151,6 @@ export default function SignUpScreen() {
                     </View>
                 </View>
             </ImageBackground>
-        </View>
+        </ScrollView>
     )
 }
