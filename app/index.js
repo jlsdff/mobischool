@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TextInput, ImageBackground, Image } from "react-native";
 import { Stack, Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -10,10 +10,13 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { SignIn } from "../utils/firebase/sigin";
 import { auth } from "../utils/firebase/firebase";
+import { UserContext } from "../context/userContext";
+import { getUserCredentials } from "../utils/firebase/getUserCredentials";
 
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const ctx = useContext(UserContext);
 
   function changeInfo(type, value) {
     if (type === "email") {
@@ -23,20 +26,23 @@ export default function Index() {
     }
   }
 
-  useEffect(()=> {
-    console.log("Index UseEffect")
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user)
-        router.push("/dashboard");
-      } else {
-        router.push("/");
-      }
-    });
-  }, [])
+  //   useEffect(() => {
+  //     auth.onAuthStateChanged((user) => {
+  //       if (user) {
+  //         // console.log(user);
+  //         router.push("/dashboard");
+  //       } else {
+  //         router.push("/");
+  //       }
+  //     });
+  //   }, []);
 
   async function login() {
-    const res = await SignIn(email, password);
+    const res = await SignIn(email, password).then(async (res) => {
+      const metadata = await getUserCredentials(res.uid);
+      ctx.setUser({ ...res, ...metadata });
+      return res;
+    });
   }
 
   return (

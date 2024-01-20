@@ -1,27 +1,56 @@
-import React from "react"
-import { View, Text } from "react-native"
-import { Tabs, Stack } from "expo-router"
+import React from "react";
+import { View, Text } from "react-native";
+import { Tabs, Stack } from "expo-router";
 
 export default function Home() {
-    return (
-        <>
-            <Stack.Screen options={{
-                headerShown: false
-            }} />
-            <Tabs>
-                <Tabs.Screen name="home" options={{
-                    headerShown: false
-                }} />
-                <Tabs.Screen name="task" options={{
-                    headerShown: false
-                }} />
-                <Tabs.Screen name="classes" options={{
-                    headerShown: false
-                }} />
-                <Tabs.Screen name="settings" options={{
-                    headerShown: false
-                }} />
-            </Tabs>
-        </>
-    )
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tabs>
+        <Tabs.Screen
+          name="home"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="task"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="classes"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="notification"
+          options={{
+            headerShown: true,
+            href: null,
+            title: "Notifications",
+            headerStyle: {
+              backgroundColor: "#fff",
+              shadowColor: "transparent",
+            },
+            headerTintColor: "#000",
+          }}
+
+          
+        />
+      </Tabs>
+    </>
+  );
 }
