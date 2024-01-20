@@ -8,8 +8,8 @@ import { Ionicons } from "@expo/vector-icons";
 export default function ProfileBar({ photoSize, photoURL }) {
   const { user } = useContext(UserContext);
   const { firstname, lastname, middlename, school } = user;
-  const url = photoURL || user.photoURL;
-  const size = photoSize || null;
+  const url = photoURL ? photoURL : null;
+  const size = photoSize ? photoSize : 16;
 
   return (
     <View className="p-4 flex-row justify-between">
@@ -19,7 +19,8 @@ export default function ProfileBar({ photoSize, photoURL }) {
         </View>
         <View className="justify-center ">
           <Text className="text-lg text-neutral-800 font-bold">
-            {firstname}{lastname}
+            {firstname}
+            {lastname}
           </Text>
           <Text className="text-xs text-neutral-700">{school}</Text>
         </View>

@@ -7,10 +7,11 @@ import AvatarProfile from "../../components/Avatar/AvatarProfile";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { UserContext } from "../../context/userContext";
 import { FontAwesome } from "@expo/vector-icons";
-import Spacer from "../../components/Spacer/spacer";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import Spacer from "../../components/spacers/spacer";
+import { Link } from "expo-router";
 
 const AccountSettings = [
   {
@@ -96,11 +97,13 @@ export default function Settings() {
             <Text className="text-sm">{user._delegate.email}</Text>
           </View>
           <View className=" justify-center items-end flex-1 ">
-            <MaterialCommunityIcons
-              name="circle-edit-outline"
-              size={32}
-              color="black"
-            />
+            <Link href="/dashboard/profileSettings">
+              <MaterialCommunityIcons
+                name="circle-edit-outline"
+                size={32}
+                color="black"
+              />
+            </Link>
           </View>
         </View>
       </View>
