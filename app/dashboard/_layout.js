@@ -14,8 +14,7 @@ export default function Home() {
           headerShown: false,
         }}
       />
-      <Tabs
-      >
+      <Tabs>
         <Tabs.Screen
           name="home"
           options={{
@@ -162,15 +161,8 @@ export default function Home() {
         <Tabs.Screen
           name="profileSettings"
           options={{
-            headerShown: true,
-            presentation: "modal",
-            href: null,
-            title: "Edit Profile",
-            headerStyle: {
-              backgroundColor: "#fff",
-              shadowColor: "transparent",
-            },
-            headerTintColor: "#000",
+            headerShown: false,
+            href: null
           }}
         />
       </Tabs>

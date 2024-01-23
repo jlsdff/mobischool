@@ -9,7 +9,7 @@ export default function ProfileBar({ photoSize, photoURL }) {
   const { user } = useContext(UserContext);
   const { firstname, lastname, middlename, school } = user;
   const url = photoURL ? photoURL : null;
-  const size = photoSize ? photoSize : 16;
+  const size = photoSize ? photoSize : 24;
 
   return (
     <View className="p-4 flex-row justify-between">

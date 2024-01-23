@@ -7,7 +7,6 @@ import { Tabs } from "expo-router";
 
 export default function Home() {
   const { user } = useContext(UserContext);
-  console.log(user.photoUrl)
   return (
     <>
     

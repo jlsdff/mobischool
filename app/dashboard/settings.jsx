@@ -60,6 +60,7 @@ const GeneralSettings = [
 ];
 
 export default function Settings() {
+
   const { user } = useContext(UserContext);
 
   return (
@@ -84,9 +85,7 @@ export default function Settings() {
           <View className="mr-4">
             <AvatarProfile
               size={64}
-              imageUrl={
-                "https://firebasestorage.googleapis.com/v0/b/mobischool-389d8.appspot.com/o/ZdfcCuXd5tcqZ91YDokONyPm5qB2.jpg?alt=media&token=e40cb6e5-8aa4-4606-858a-0c841707adc3"
-              }
+              imageUrl={user.photoUrl ? user.photoUrl : null}
             />
           </View>
           <View className="">
